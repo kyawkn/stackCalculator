@@ -69,7 +69,7 @@ Arith.prototype.sub = function() {
     var subAns;
     if (isNaN(sTop))
         subAns = top - top;
-    else subAns= sTop - Top;
+    else subAns= sTop - top;
     this.stack.push(subAns);
     this.lastBtn = "op";
 
