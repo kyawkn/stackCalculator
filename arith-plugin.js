@@ -1,7 +1,7 @@
 /**
  * arith-plugin.js
  * Author @ Kyaw Khant Nyar (kxk3035@rit.edu)
- *
+ * Author @ Harshvardhan Gupta (hxg7013@rit.edu)
  * The Arith class
  */
 /***
@@ -14,7 +14,7 @@ function Arith( ) {
 }
 
 /**
- * getStackTop pops the
+ * getStackTop gives the top of the stack back
  */
 Arith.prototype.getStackTop = function() {
 
@@ -61,7 +61,7 @@ Arith.prototype.add = function() {
 };
 
 /**
- *
+ * arith sub
  * */
 Arith.prototype.sub = function() {
     var top =  this.stack.pop();
@@ -76,7 +76,7 @@ Arith.prototype.sub = function() {
 };
 
 /**
- *
+ * arith mul
  * */
 Arith.prototype.mul = function() {
     var top =  this.stack.pop();
@@ -91,7 +91,7 @@ Arith.prototype.mul = function() {
 };
 
 /**
- *
+ * arith divide
  * */
 Arith.prototype.div = function() {
     var top =  this.stack.pop();
