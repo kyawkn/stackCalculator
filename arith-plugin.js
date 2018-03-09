@@ -53,8 +53,8 @@ Arith.prototype.add = function() {
    var sTop = this.stack.pop();
    var addAns;
    if (isNaN(sTop))
-       addAns = top + top;
-   else addAns= top + sTop;
+       addAns = parseInt(top) + parseInt(top);
+   else addAns= parseInt(top) + parseInt(sTop);
    this.stack.push(addAns);
    this.lastBtn = "op";
 
@@ -119,12 +119,3 @@ Arith.opList = {
  */
 Arith.opNames = [ "+", "-", "*", "/" ];
 
-/**
- * JS Document Object Modules
- **/
-
-/**
- * QUESTIONS:::
- * 1. the operations
- * 2.
- * */

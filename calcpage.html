@@ -12,25 +12,26 @@ Author @ Kyaw Khant Nyar (kxk3035@rit.edu)
         window.onload = function () {
 
 
-
+            // Arith object created
             var arit = new Arith();
 
+            // body DOM
             var body = document.getElementsByTagName("body")[0];
+            // table DOM
             var table = document.createElement("TABLE");
             table.setAttribute("id", "calculator");
 
             var tableBody = document.createElement("tbody");
 
+            // last row of Calculator
             var utilRow = document.createElement("tr");
-
             var utilCol = document.createElement("td");
-
             var cBtn = document.createElement("button");
             cBtn.innerHTML = "C";
             cBtn.setAttribute("id", "C");
             cBtn.onclick = function () {
                 arit.setStackTop(0);
-                document.getElementById("ansField").setAttribute("placeholder", arit.getStackTop());
+                document.getElementById("ansField").value =  arit.getStackTop();
             };
             var zeroBtn = document.createElement("button");
             zeroBtn.innerHTML = "0";
@@ -41,16 +42,18 @@ Author @ Kyaw Khant Nyar (kxk3035@rit.edu)
             eBtn.setAttribute("id", "E");
             eBtn.onclick = function () {
                 arit.enter();
-                document.getElementById("ansField").setAttribute("placeholder", arit.getStackTop());
+                document.getElementById("ansField").value =  arit.getStackTop();
             };
             var fBtn = document.createElement("button");
             fBtn.innerHTML = Arith.opNames[3];
             fBtn.setAttribute("id", Arith.opNames[3]);
             fBtn.onclick = function () {
                 Arith.opList[Arith.opNames[3]].call(arit);
-                document.getElementById("ansField").setAttribute("placeholder", arit.getStackTop());
+                document.getElementById("ansField").value =  arit.getStackTop();
             };
 
+
+            // set up the last row
             utilCol.appendChild(cBtn);
             utilCol.appendChild(zeroBtn);
             utilCol.appendChild(eBtn);
@@ -59,9 +62,10 @@ Author @ Kyaw Khant Nyar (kxk3035@rit.edu)
             utilRow.appendChild(utilCol);
             tableBody.appendChild(utilRow);
 
+            // number counter
             var count = 1;
 
-
+            // for num 1,2,3
             var row1 = document.createElement("tr");
             var cell1 = document.createElement("td");
 
@@ -79,12 +83,14 @@ Author @ Kyaw Khant Nyar (kxk3035@rit.edu)
             btn1.setAttribute("id", Arith.opNames[0]);
             btn1.onclick = function () {
                 Arith.opList[Arith.opNames[0]].call(arit);
-                document.getElementById("ansField").setAttribute("placeholder", arit.getStackTop());
+                document.getElementById("ansField").value =  arit.getStackTop();
             };
             cell1.appendChild(btn1);
             row1.appendChild(cell1);
             tableBody.insertBefore(row1, utilRow);
 
+
+            // for number 4,5,6
             var row2 = document.createElement("tr");
             var cell2 = document.createElement("td");
             for (var j2 = 0; j2 < 3; j2++) {
@@ -101,12 +107,14 @@ Author @ Kyaw Khant Nyar (kxk3035@rit.edu)
             btn2.setAttribute("id", Arith.opNames[1]);
             btn2.onclick = function () {
                 Arith.opList[Arith.opNames[1]].call(arit);
-                document.getElementById("ansField").setAttribute("placeholder", arit.getStackTop());
+                document.getElementById("ansField").value =  arit.getStackTop();
             };
             cell2.appendChild(btn2);
             row2.appendChild(cell2);
             tableBody.insertBefore(row2, row1);
 
+
+            // for number 7,8,9
             var row3 = document.createElement("tr");
             var cell3 = document.createElement("td");
             for (var j3 = 0; j3 < 3; j3++) {
@@ -123,18 +131,21 @@ Author @ Kyaw Khant Nyar (kxk3035@rit.edu)
             btn3.setAttribute("id", Arith.opNames[2]);
             btn3.onclick = function () {
                 Arith.opList[Arith.opNames[2]].call(arit);
-                document.getElementById("ansField").setAttribute("placeholder", arit.getStackTop());
+                document.getElementById("ansField").value =  arit.getStackTop();
             };
             cell3.appendChild(btn3);
             row3.appendChild(cell3);
             tableBody.insertBefore(row3, row2);
 
+
+            // ans field
             var txtField = document.createElement("input");
             txtField.style.width = "200px";
             txtField.style.height = "25px";
             txtField.style.borderRadius = "5%";
             txtField.setAttribute("id", "ansField");
-            txtField.setAttribute("placeholder", arit.getStackTop());
+            txtField.setAttribute("value", arit.getStackTop());
+            txtField.style.textAlign = "right";
 
             tableBody.insertBefore(txtField, row3);
 
@@ -157,8 +168,10 @@ Author @ Kyaw Khant Nyar (kxk3035@rit.edu)
                 var btn = btns[btnC];
                 if(btn.id >= 0 && btn.id <= 9)
                     btn.style.background = "rgba(0,128,255,0.6)";
+                else if(btn.id === "E" || btn.id === "C")
+                    btn.style.background = "rgba(232, 133, 12, 0.6)";
                 else
-                    btn.style.background = "rgba(192,192,192,0.6)";
+                    btn.style.background = "rgba(125,12,232,0.6)";
                 btn.style.height = "50px";
                 btn.style.width = "50px";
                 btn.style.borderRadius = "20%";
@@ -172,7 +185,7 @@ Author @ Kyaw Khant Nyar (kxk3035@rit.edu)
                 else cur = val;
 
                 arit.setStackTop(cur);
-                document.getElementById("ansField").setAttribute("placeholder", arit.getStackTop());
+                document.getElementById("ansField").value =  arit.getStackTop();
                 arit.lastBtn = "n";
                 console.log(arit);
             };
