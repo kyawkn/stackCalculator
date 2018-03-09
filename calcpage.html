@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<!--
+calcpage.html for PLC project 3
+Author @ Kyaw Khant Nyar (kxk3035@rit.edu)
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PLC - Calculator</title>
+    <script src="arith-plugin.js"></script>
+    <script>
+        window.onload = function () {
+
+
+
+            var arit = new Arith();
+
+            var body = document.getElementsByTagName("body")[0];
+            var table = document.createElement("TABLE");
+            table.setAttribute("id", "calculator");
+
+            var tableBody = document.createElement("tbody");
+
+            var utilRow = document.createElement("tr");
+
+            var utilCol = document.createElement("td");
+
+            var cBtn = document.createElement("button");
+            cBtn.innerHTML = "C";
+            cBtn.setAttribute("id", "C");
+            cBtn.onclick = function () {
+                arit.setStackTop(0);
+                document.getElementById("ansField").setAttribute("placeholder", arit.getStackTop());
+            };
+            var zeroBtn = document.createElement("button");
+            zeroBtn.innerHTML = "0";
+            zeroBtn.setAttribute("id", "0");
+            zeroBtn.setAttribute("onclick", "numFunc(" + 0 + ")");
+            var eBtn = document.createElement("button");
+            eBtn.innerHTML = "E";
+            eBtn.setAttribute("id", "E");
+            eBtn.onclick = function () {
+                arit.enter();
+                document.getElementById("ansField").setAttribute("placeholder", arit.getStackTop());
+            };
+            var fBtn = document.createElement("button");
+            fBtn.innerHTML = Arith.opNames[3];
+            fBtn.setAttribute("id", Arith.opNames[3]);
+            fBtn.onclick = function () {
+                Arith.opList[Arith.opNames[3]].call(arit);
+                document.getElementById("ansField").setAttribute("placeholder", arit.getStackTop());
+            };
+
+            utilCol.appendChild(cBtn);
+            utilCol.appendChild(zeroBtn);
+            utilCol.appendChild(eBtn);
+            utilCol.appendChild(fBtn);
+
+            utilRow.appendChild(utilCol);
+            tableBody.appendChild(utilRow);
+
+            var count = 1;
+
+
+            var row1 = document.createElement("tr");
+            var cell1 = document.createElement("td");
+
+            for (var j1 = 0; j1 < 3; j1++) {
+                var button1 = document.createElement("button");
+                button1.innerHTML = count;
+                button1.setAttribute("id", count);
+                button1.setAttribute("onclick", "numFunc(" +count+ ")");
+                cell1.appendChild(button1);
+                row1.appendChild(cell1);
+                count++;
+            }
+            var btn1 = document.createElement("button");
+            btn1.innerHTML = Arith.opNames[0];
+            btn1.setAttribute("id", Arith.opNames[0]);
+            btn1.onclick = function () {
+                Arith.opList[Arith.opNames[0]].call(arit);
+                document.getElementById("ansField").setAttribute("placeholder", arit.getStackTop());
+            };
+            cell1.appendChild(btn1);
+            row1.appendChild(cell1);
+            tableBody.insertBefore(row1, utilRow);
+
+            var row2 = document.createElement("tr");
+            var cell2 = document.createElement("td");
+            for (var j2 = 0; j2 < 3; j2++) {
+                var button2 = document.createElement("button");
+                button2.innerHTML = count;
+                button2.setAttribute("id", count);
+                button2.setAttribute("onclick", "numFunc(" +count+ ")");
+                cell2.appendChild(button2);
+                row2.appendChild(cell2);
+                count++;
+            }
+            var btn2 = document.createElement("button");
+            btn2.innerHTML = Arith.opNames[1];
+            btn2.setAttribute("id", Arith.opNames[1]);
+            btn2.onclick = function () {
+                Arith.opList[Arith.opNames[1]].call(arit);
+                document.getElementById("ansField").setAttribute("placeholder", arit.getStackTop());
+            };
+            cell2.appendChild(btn2);
+            row2.appendChild(cell2);
+            tableBody.insertBefore(row2, row1);
+
+            var row3 = document.createElement("tr");
+            var cell3 = document.createElement("td");
+            for (var j3 = 0; j3 < 3; j3++) {
+                var button3 = document.createElement("button");
+                button3.innerHTML = count;
+                button3.setAttribute("id", count);
+                button3.setAttribute("onclick", "numFunc(" +count+ ")");
+                cell3.appendChild(button3);
+                row3.appendChild(cell3);
+                count++;
+            }
+            var btn3 = document.createElement("button");
+            btn3.innerHTML = Arith.opNames[2];
+            btn3.setAttribute("id", Arith.opNames[2]);
+            btn3.onclick = function () {
+                Arith.opList[Arith.opNames[2]].call(arit);
+                document.getElementById("ansField").setAttribute("placeholder", arit.getStackTop());
+            };
+            cell3.appendChild(btn3);
+            row3.appendChild(cell3);
+            tableBody.insertBefore(row3, row2);
+
+            var txtField = document.createElement("input");
+            txtField.style.width = "200px";
+            txtField.style.height = "25px";
+            txtField.style.borderRadius = "5%";
+            txtField.setAttribute("id", "ansField");
+            txtField.setAttribute("placeholder", arit.getStackTop());
+
+            tableBody.insertBefore(txtField, row3);
+
+            table.appendChild(tableBody);
+            var div1 = document.createElement("div");
+            var title = document.createElement("h3");
+            title.innerHTML = "Calculator";
+            title.setAttribute("align", "center");
+            body.appendChild(title);
+            body.appendChild(document.createElement("br"));
+
+            div1.appendChild(table);
+            div1.setAttribute("align", "center");
+            body.appendChild(div1);
+
+
+            body.style.fontFamily = "\"Helvetica Neue\", Helvetica, Arial, sans-serif ";
+            var btns = document.getElementsByTagName("button");
+            for(var btnC = 0; btnC < btns.length; btnC++) {
+                var btn = btns[btnC];
+                if(btn.id >= 0 && btn.id <= 9)
+                    btn.style.background = "rgba(0,128,255,0.6)";
+                else
+                    btn.style.background = "rgba(192,192,192,0.6)";
+                btn.style.height = "50px";
+                btn.style.width = "50px";
+                btn.style.borderRadius = "20%";
+
+            }
+
+            numFunc = function (val) {
+                var cur = arit.getStackTop();
+                if ( cur !== 0 && arit.lastBtn !== "e")
+                    cur = "" + cur + val;
+                else cur = val;
+
+                arit.setStackTop(cur);
+                document.getElementById("ansField").setAttribute("placeholder", arit.getStackTop());
+                console.log(arit);
+            };
+
+
+        }
+
+
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>
